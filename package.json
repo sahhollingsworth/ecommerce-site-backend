@@ -1,0 +1,30 @@
+{
+  "name": "ecommerce-site-backend",
+  "version": "1.0.0",
+  "description": "This is a backend build in partnership with an pre-existing e-commerce site frontend.  Given the prevalence of ecommerce in retail trends and day-to-day life, understanding the fundamental architecture of e-commerce platforms is an important area of focus for full-stack web development.",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.2",
+    "sequelize": "^6.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "seed": "node seeds/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahhollingsworth/ecommerce-site-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sahhollingsworth/ecommerce-site-backend/issues"
+  },
+  "homepage": "https://github.com/sahhollingsworth/ecommerce-site-backend#readme"
+}

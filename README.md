@@ -39,3 +39,6 @@ Required when when you first set up the project for local development or use OR 
 Sarah Hollingsworth
 * [Github](https://github.com/sahhollingsworth)
 * [LinkedIn](https://www.linkedin.com/in/sarahhollingsworth/)
+
+## Acknowledgements
+* [Ed Timmer's](https://medium.com/@edtimmer) demo of Sequelize model associations via the article, ["Sequelize's BelongsTo & HasMany Associations"](https://medium.com/@edtimmer/sequelize-associations-basics-bde90c0deeaa)

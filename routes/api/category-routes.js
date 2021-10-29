@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
     });
     // If the id doesn't exist in the category table, throw not found error
     if (!categoryData) {
-      res.status(404).json({message: "There are no categories with an ID of " + req.params.id});
+      res.status(404).json({message: "There are no categories with an ID of " + req.params.id + "."});
       return;
     }
     //if successful, return success code & return retrieved data as a json object
@@ -57,10 +57,21 @@ router.put('/:id', (req, res) => {
   }
 });
 
+// Delete a category record, as identified by its `id` value
 router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
   try {
-
+    // Destroy the category record associated with the request `id`
+    const categoryData = await Category.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+    // If the id doesn't exist in the category table, throw not found error
+    if(!categoryData) {
+      res.status(404).json({message: "There are no categories with an ID of " + req.params.id + "."});
+      return;
+    }
+    res.status(200).json({message: "Category removed sucessfully!"});
   } catch (err) {
     res.status(500).json(err);
   }

@@ -43,7 +43,7 @@ router.get('/:id', async (req, res) => {
     });
     // If the id doesn't exist in the product table, throw not found error
     if (!productData) {
-      res.status(404).json({message: "There are no products with an ID of " + req.params.id});
+      res.status(404).json({message: "There are no products with an ID of " + req.params.id + "."});
       return;
     }
     //if successful, return success code & return retrieved data as a json object
@@ -127,8 +127,24 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+// Delete a product record, as identified by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    // Destroy the product record associated with the request `id`
+    const productData = await Product.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+    // If the id doesn't exist in the product table, throw not found error
+    if(!productData) {
+      res.status(404).json({message: "There are no products with an ID of " + req.params.id + "."});
+      return;
+    }
+    res.status(200).json({message: "Product removed sucessfully!"});
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

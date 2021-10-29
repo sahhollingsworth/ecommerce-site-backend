@@ -29,7 +29,7 @@ router.get('/:id', async (req, res) => {
     });
     // If the id doesn't exist in the tag table, throw not found error
     if (!tagData) {
-      res.status(404).json({message: "There are no tags with an ID of " + req.params.id});
+      res.status(404).json({message: "There are no tags with an ID of " + req.params.id + "."});
       return;
     }
     //if successful, return success code & return retrieved data as a json object
@@ -41,14 +41,40 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new tag
+  try {
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
+  try {
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
+// Delete a tag record, as identified by its `id` value
 router.delete('/:id', (req, res) => {
-  // delete on tag by its `id` value
+  try {
+    // Destroy the tag record associated with the request `id`
+    const tagData = await Tag.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+    // If the id doesn't exist in the tag table, throw not found error
+    if(!tagData) {
+      res.status(404).json({message: "There are no tags with an ID of " + req.params.id + "."});
+      return;
+    }
+    res.status(200).json({message: "Tag removed sucessfully!"});
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

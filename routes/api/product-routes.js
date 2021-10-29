@@ -3,16 +3,54 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
 
-// get all products
-router.get('/', (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
+// Get all product records, including any associated categories or tags
+router.get('/', async (req, res) => {
+  try {
+    // find all product records
+    const productData = await Product.findAll({
+      //For each product record returned, any associated records in the Category or Tag models will also be return with that product
+      include:[{
+        model: Category,
+        },
+        {
+          model: Tag, 
+          through: ProductTag
+        }
+      ]
+    });
+    //if successful, return success code & return retrieved data as a json object
+    res.status(200).json(productData);
+  } catch (err) {
+    //If unsuccessful, return error code
+    res.status(500).json(err);
+  }
 });
 
-// get one product
-router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+// Get a product record, + any associated categories or tags, by `id` value
+router.get('/:id', async (req, res) => {
+  try {
+    // use the id passed through the request to locate the product record as `id` is the table's primary key
+    const productData = await Product.findByPk(req.params.id, {
+      // include any category or tag associated with the product
+      include:[{
+        model: Category,
+        },
+        {
+          model: Tag, 
+          through: ProductTag
+        }
+      ]
+    });
+    // If the id doesn't exist in the product table, throw not found error
+    if (!productData) {
+      res.status(404).json({message: "There are no products with an ID of " + req.params.id});
+      return;
+    }
+    //if successful, return success code & return retrieved data as a json object
+    res.status(200).json(productData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // create new product

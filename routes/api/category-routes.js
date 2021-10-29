@@ -51,10 +51,24 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', (req, res) => {
+// Update an existing Category record, as identified by `id`
+router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
-
+    // create a new variable with the updated category record data
+    const categoryData = await Category.update(
+      // assign the new value of `category_name` using contents of the request
+      {category_name: req.body.category_name},
+      // identify which category record to edit via `id`
+      {where: {id: req.params.id}}
+    );
+    // If a category with req id doesn't exist, throw error and notify user
+    if (!categoryData) {
+      res.status(404).json({message: "There are no categories with an ID of " + req.params.id + "."});
+      return;
+    }
+    //if successful, return success code & the new updated category record as a json object
+    res.status(200).json(categoryData);
   } catch (err) {
     res.status(500).json(err);
   }

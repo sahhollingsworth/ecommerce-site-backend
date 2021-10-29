@@ -39,7 +39,9 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create a new Tag record
+
+// VERY BROKEN -- FIX
+// Create a new Tag record 
 router.post('/', async (req, res) => {
   try {
     const tagData = await tag.create({tag_name: req.body.tag_name});
@@ -50,10 +52,17 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', (req, res) => {
-  // update a tag's name by its `id` value
+// Update an existing Tag record, as identified by `id`
+router.put('/:id', async (req, res) => {
+  // update a category by its `id` value
   try {
-
+    const tagData = await Tag.findByPk(req.params.id,
+    
+    {});
+    if (!tagData) {
+      res.status(404).json({message: "There are no tags with an ID of " + req.params.id + "."});
+      return;
+    }
   } catch (err) {
     res.status(500).json(err);
   }

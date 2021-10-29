@@ -53,7 +53,6 @@ router.post('/', async (req, res) => {
 
 // Update an existing Category record, as identified by `id`
 router.put('/:id', async (req, res) => {
-  // update a category by its `id` value
   try {
     // create a new variable with the updated category record data
     const categoryData = await Category.update(
@@ -63,7 +62,7 @@ router.put('/:id', async (req, res) => {
       {where: {id: req.params.id}}
     );
     // If a category with req id doesn't exist, throw error and notify user
-    if (!categoryData) {
+    if (!categoryData[0]) {
       res.status(404).json({message: "There are no categories with an ID of " + req.params.id + "."});
       return;
     }

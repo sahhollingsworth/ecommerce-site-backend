@@ -15,7 +15,7 @@ Tag.init(
       type: DataTypes.INTEGER,
       // Can't be a null value
       allowNull: false,
-      // The primary key for Categories
+      // The primary key for the tag table
       primaryKey: true,
       // Value auto increments up one with each new record
       autoIncrement: true
@@ -23,7 +23,6 @@ Tag.init(
     tag_name: {
       // Value will be a string
       type: DataTypes.INTEGER,
-      // Can't be a null value
       allowNull: false
     }
   },

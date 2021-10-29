@@ -10,7 +10,34 @@ class ProductTag extends Model {}
 // Fields and assiociated requirements for the Product Tag db model
 ProductTag.init(
   {
-    // define columns
+    id: {
+      // Value will be an integer
+      type: DataTypes.INTEGER,
+      // Can't be a null value
+      allowNull: false,
+      // The primary key for the product_tag table
+      primaryKey: true,
+      // Value auto increments up one with each new record
+      autoIncrement: true
+    },
+    product_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      // This is a foreign key from the product model (table) on the id key (column value)
+      references: {
+        model: 'product',
+        key: 'id'
+      }
+    },
+    tag_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      // This is a foreign key from the tag model (table) on the id key (column value)
+      references: {
+        model: 'tag',
+        key: 'id'
+      }
+    }
   },
   {
     sequelize,
@@ -22,16 +49,3 @@ ProductTag.init(
 );
 
 module.exports = ProductTag;
-
-
-    // - `id`
-    //     - Integer.
-    //     - Doesn't allow null values.
-    //     - Set as primary key.
-    //     - Uses auto increment.
-    // - `product_id`
-    //     - Integer.
-    //     - References the `Product` model's `id`.
-    // - `tag_id`
-    //     - Integer.
-    //     - References the `Tag` model's `id`.

@@ -23,7 +23,6 @@ Category.init(
     category_name: {
       // Value will be a string
       type: DataTypes.STRING,
-      // Can't be a null value
       allowNull: false
     }
   },

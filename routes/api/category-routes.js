@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
+const { tableName } = require('../../models/Category');
 
 // The `/api/categories` endpoint
 
@@ -39,10 +40,12 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
-  // create a new category
+// Create a new Category record
+router.post('/', async (req, res) => {
   try {
-
+    const categoryData = await Category.create({category_name: req.body.category_name});
+    //if successful, return success code & return newly created category data as a json object
+    res.status(200).json(categoryData);
   } catch (err) {
     res.status(500).json(err);
   }
